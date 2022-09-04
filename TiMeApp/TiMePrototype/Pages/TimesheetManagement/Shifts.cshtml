@@ -1,0 +1,61 @@
+﻿@page
+@model TiMePrototype.Pages.TimesheetManagement.ShiftsModel
+@{
+    ViewData["Title"] = "Shifts";
+}
+
+<div class="container">
+    <h2 class="display-6 mb-2">Your shifts</h2>
+    <p>
+        <a asp-page="./AddShift">Add new shift</a>
+    </p>
+
+    @if (Model.Shifts.Any())
+    {
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(shift => shift.Shifts![0].StartTime)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(shift => shift.Shifts![0].EndTime)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(shift => shift.Shifts![0].TotalHours)
+                        </th>
+                        <th class="d-none d-lg-table-cell">
+                            @Html.DisplayNameFor(shift => shift.Shifts![0].HourlyRate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(shift => shift.Shifts![0].DailyWage)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Shifts!)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(shift => item.StartTime)</td>
+                            <td>@Html.DisplayFor(shift => item.EndTime)</td>
+                            <td>@Html.DisplayFor(shift => item.TotalHours)</td>
+                            <td class="d-none d-lg-table-cell">@Html.DisplayFor(shift => item.HourlyRate)</td>
+                            <td>@Html.DisplayFor(shift => item.DailyWage)</td>
+                            <td class="d-flex flex-row align-items-center flex-wrap">
+                                <a asp-page="./EditShift" asp-route-id="@item.Id">Edit</a>
+                                <form method="post">
+                                    <button class="btn btn-link link-danger" type="submit" asp-page="./DeleteShift" asp-page-handler="OnPost" asp-route-id="@item.Id">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <p>You have not recorded any shifts...</p>
+    }
+</div>

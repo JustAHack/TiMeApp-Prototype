@@ -1,0 +1,43 @@
+﻿@page
+@model TiMePrototype.Pages.Account.RegisterModel
+@{
+    ViewData["Title"] = "Register an account";
+}
+
+<h2>Register an account</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="Account" asp-action="Register" asp-antiforgery="true" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Credential.UserName" class="control-label"></label>
+                <input asp-for="Credential.UserName" type="text" class="form-control" />
+                <span asp-validation-for="Credential.UserName" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Credential.Password" class="control-label"></label>
+                <input asp-for="Credential.Password" type="password" class="form-control" />
+                <span asp-validation-for="Credential.Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Credential.ConfirmPassword" class="control-label"></label>
+                <input asp-for="Credential.ConfirmPassword" type="password" class="form-control" />
+                <span asp-validation-for="Credential.ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <input type="submit" value="Send" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

@@ -1,0 +1,121 @@
+﻿@page
+@model TiMePrototype.Pages.TimesheetManagement.EarningsModel
+@{
+    ViewData["Title"] = "Earnings";
+}
+
+<div class="container">
+    <div class="row row-cols-3 row-cols-md-3 g-4">
+        
+        <div class="col">
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title">
+                        @Html.DisplayNameFor(m => m.WeeklyWages)
+                    </div>
+
+                    <div class="card-text">
+                        <span class="text-success">$@Model.WeeklyWages.ToString("#.##")</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col">
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title">
+                        @Html.DisplayNameFor(m => m.FornightlyWages)
+                    </div>
+
+                    <div class="card-text">
+                        <span class="text-success">$@Model.FornightlyWages.ToString("#.##")</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col">
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title">
+                        @Html.DisplayNameFor(m => m.MonthsWages)
+                    </div>
+
+                    <div class="card-text">
+                        <span class="text-success">$@Model.MonthsWages.ToString("#.##")</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <h2 class="display-6 mb-2">Search</h2>
+    <form class="py-2" method="post">
+        <div class="row input-group g-3">
+            <div class="col-lg-3 form-floating">
+                
+                <input class="form-control" asp-for="@Model.StartDate" type="date" placeholder="@Model.StartDate"
+                       value="@Model.StartDate.ToString("yyyy-MM-dd")" />
+                <label asp-for="@Model.StartDate"></label>
+            </div>
+
+            <div class="col-lg-3 form-floating">
+                
+                <input class="form-control" asp-for="@Model.EndDate" type="date" placeholder="@Model.EndDate"
+                       value="@Model.EndDate.ToString("yyyy-MM-dd")" />
+                <label asp-for="@Model.EndDate"></label>
+            </div>
+
+            <div class="col-lg-3">
+                <input type="submit" class="btn btn-success" value="Search" />
+            </div>
+        </div>
+    </form>
+
+    @if (Model.Shifts?.Count() > 0)
+    {
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(m => m.StartDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(m => m.EndDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(shift => shift.Shifts![0].TotalHours)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Shifts!)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(shift => item.StartTime)</td>
+                            <td>@Html.DisplayFor(shift => item.EndTime)</td>
+                            <td>@Html.DisplayFor(shift => item.TotalHours)</td>
+                            <td class="d-flex flex-row align-items-center flex-wrap">
+                                <a asp-page="./ShiftDetails" asp-route-id="@item.Id">View</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+
+    }
+
+</div>

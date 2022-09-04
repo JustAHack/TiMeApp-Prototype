@@ -1,0 +1,50 @@
+﻿@page
+@model TiMePrototype.Pages.TimesheetManagement.ShiftDetailsModel
+@{
+    ViewData["Title"] = "Shift Details";
+}
+
+<div class="container">
+    <h2 class="display-6 mb-2">Shift details</h2>
+    <p>
+        <a asp-page="./Earnings">Back</a>
+    </p>
+     <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(shift => shift.Shift.StartTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(shift => shift.Shift.EndTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(shift => shift.Shift.TotalHours)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(shift => shift.Shift.HourlyRate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(shift => shift.Shift.DailyWage)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Html.DisplayFor(shift => shift.Shift.StartTime)</td>
+                    <td>@Html.DisplayFor(shift => shift.Shift.EndTime)</td>
+                    <td>@Html.DisplayFor(shift => shift.Shift.TotalHours)</td>
+                    <td>@Html.DisplayFor(shift => shift.Shift.HourlyRate)</td>
+                    <td>@Html.DisplayFor(shift => shift.Shift.DailyWage)</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="d-flex flex-row align-items-center flex-wrap">
+            <a asp-page="./EditShift" asp-route-id="@Model.Shift.Id">Edit</a>
+            <form method="post">
+                <button class="btn btn-link link-danger" type="submit" asp-page="./DeleteShift" asp-page-handler="OnPost" asp-route-id="@Model.Shift.Id">Delete</button>
+            </form>
+        </div>
+        </div>
+</div>
